@@ -14,6 +14,11 @@ const routes = [
     component: Criptosya,
   },
   {
+    path: '/mercado',
+    name: 'mercado',
+    component: () => import('../views/Mercado.vue'),
+  },
+  {
     path: '/historial',
     name: 'historial',
     component: () => import('../views/Historial.vue'),

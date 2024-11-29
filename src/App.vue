@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <!-- Mostrar HeaderComponent si no estamos en la página de login -->
     <HeaderComponent v-if="!isLoginPage" />
-
     <router-view />
   </div>
 </template>
@@ -11,10 +9,8 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import HeaderComponent from './components/HeaderComponent.vue';
-
-// Detectar si estamos en la página de login
 const route = useRoute();
-const isLoginPage = computed(() => route.path === '/'); // Ajusta el path según corresponda
+const isLoginPage = computed(() => route.path === '/');
 </script>
 
 <style>

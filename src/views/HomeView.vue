@@ -1,77 +1,62 @@
 <template>
-  <header>
-  <h1>CriptoYa</h1>
-
-	</header>
-
-  <div class="container">
-	<div class="d-flex justify-content-center h-100">
-		<div class="card">
-			<div class="card-header">
-				<h3>Iniciar Sesion</h3>
-			</div>
-			<div class="card-body">
-				<form v-on:submit.prevent="login">
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="Usuario" v-model="usuario">
-						
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" placeholder="Contraseña" v-model="password">
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Ingresar" class="btn float-right login_btn">
-					</div>
-				</form>
-			</div>
-			<div class="card-footer">
-				<div class="d-flex justify-content-center links">
-					No tienes cuenta? <a href="#">Registrate Aca</a>
-				</div>
-				<div class="d-flex justify-content-center">
-					<a href="#">¿Olvidaste tu contraseña?</a>
-				</div>
-			</div>
-		</div>
-	</div>
-  </div>
-
-</template>
-
-<script>
-import '@/assets/styles/Login.css'
-export default {
-  name: 'HomeView',
-  components: {
-    
-  },
-  data() {
-    return {
-      usuario: "",
-      password: "",
-    };
-  },
-  methods: {
-    login() {
-      if (this.usuario.trim() === "" || this.password.trim() === "") {
-        alert("Por favor, completa todos los campos.");
-        return;
-      }
-
-      localStorage.setItem("userId", this.usuario);
-
-      this.$router.push("/Criptosya");
+    <header>
+      <h1>CriptoYa</h1>
+    </header>
+  
+    <div class="container">
+      <div class="d-flex justify-content-center h-100">
+        <div class="card">
+          <div class="card-header">
+            <h3>Iniciar Sesion</h3>
+          </div>
+          <div class="card-body">
+            <form v-on:submit.prevent="login">
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="Usuario" v-model="usuario" />
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" placeholder="Contraseña" v-model="password" />
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Ingresar" class="btn float-right login_btn" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import "@/assets/styles/Login.css"
+  export default {
+    name: "HomeView",
+    data() {
+      return {
+        usuario: "",
+        password: "",
+      };
     },
-  },
-}
-</script>
-
+    methods: {
+      login() {
+        if (this.usuario.trim() === "" || this.password.trim() === "") {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+        localStorage.setItem("userId", this.usuario);
+  
+        this.$router.push("/historial");
+      },
+    },
+  };
+  </script>
+  
 <style scoped>
     header {
         padding: 10px 20px;
@@ -96,7 +81,7 @@ export default {
     
     .card {
         width: 400px;
-        background-color: rgba(0, 0, 0, 0.5) !important;
+        background-color: rgba(0, 0, 0, 0.5);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -188,10 +173,6 @@ export default {
         color: white;
     }
     
-    .card-footer {
-        text-align: center;
-        color: white;
-    }
     
     .links a {
         margin-left: 4px;
