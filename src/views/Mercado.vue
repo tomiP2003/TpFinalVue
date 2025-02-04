@@ -149,43 +149,113 @@
   </script>
   
   <style scoped>
-  .container {
-    
-    margin: 20px auto;
-    width: 90%;
-    background-color: none;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .table-container {
-    max-height: 500px;
-    overflow-y: auto;
-  }
-  
-  .table {
-    margin-top: 20px;
-    width: 100%;
-    background-color: aqua;
-  }
-  
-  .text-success {
-    color: green;
-  }
-  
-  .text-danger {
-    color: red;
-  }
-  
-  .form-control {
-    margin-bottom: 20px;
-    padding: 10px;
-    width: 80%;
-  }
-  
-  .sparkline {
-    width: 100px;
-    height: 20px;
-  }
-  </style>
+.container {
+  font-family: Arial, sans-serif;
+  color: #ffffff;
+  background-color: #0b111e;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #f0b90b;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.form-control {
+  margin: 20px auto; /* Centra horizontalmente */
+  display: block; /* Asegura que el input tome el bloque completo */
+  padding: 10px;
+  border: 1px solid #2e3a4e;
+  border-radius: 5px;
+  width: 80%; /* Ajusta el ancho según sea necesario */
+  background-color: #161d2c;
+  color: #ffffff;
+  text-align: center; /* Centra el texto dentro del input */
+}
+
+.form-control::placeholder {
+  color: #888;
+}
+
+
+.table-container {
+  overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
+  max-height: 400px; /* Limita la altura máxima del contenedor para permitir el scroll */
+  border-radius: 8px;
+  margin: 0 auto;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  background-color: #161d2c; /* Fondo oscuro para el contenedor */
+}
+
+
+.table {
+  width: 100%; /* Haz que la tabla ocupe todo el ancho del contenedor */
+  border-collapse: collapse;
+  background-color: #161d2c;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0;
+}
+.table-container::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de desplazamiento */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #f0b90b; /* Color del "pulgar" de la barra */
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background-color: #0b111e; /* Fondo del track de la barra */
+}
+
+
+.table th,
+.table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #2e3a4e;
+  font-size: 16px;
+}
+
+.table th {
+  background-color: #0d172a;
+  color: #f0b90b;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.table tbody tr:hover {
+  background-color: #1f293d;
+  cursor: pointer;
+}
+
+.text-success {
+  color: #00ff00;
+}
+
+.text-danger {
+  color: #ff4d4d;
+}
+
+.sparkline {
+  max-width: 150px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+</style>
+
   

@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "axios": "^1.7.8",
-    "vue": "^3.2.13",
+    "vue": "^3.5.13",
     "vue-axios": "^3.5.2",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
@@ -17,5 +17,10 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0"
-  }
+  },
+  "description": "```\r npm install\r ```",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
