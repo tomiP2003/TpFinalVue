@@ -2,7 +2,8 @@
   <div class="container">
     <h1>Mi Billetera</h1>
 
-    <div v-if="wallet.length">
+    <div v-if="wallet.length" class="content-wrapper">
+      <!-- Columna izquierda: Tabla de criptos -->
       <div class="table-container">
         <table class="table">
           <thead>
@@ -24,32 +25,41 @@
         </table>
       </div>
 
-      <!-- Total wallet value in ARS -->
-      <div class="total">
-        <h3>Total en ARS: {{ formatCurrency(totalInARS) }}</h3>
+      <!-- Columna derecha: Gráfico -->
+      <div class="chart-container">
+        <Grafico :wallet="wallet" />
       </div>
     </div>
 
     <p v-else>No tienes criptomonedas en tu billetera.</p>
+
+    <!-- Total wallet value in ARS -->
+    <div class="total">
+      <h3>Total en ARS: {{ formatCurrency(totalInARS) }}</h3>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import Grafico from "@/components/Grafico.vue"; // Importamos el componente del gráfico
 
 export default {
-  name: "WalletView",
+  name: "EstadoActual",
+  components: {
+    Grafico, // Registramos el componente aquí
+  },
   data() {
     return {
-      wallet: [],
-      cryptoPrices: {}, // Guardamos los precios de las criptomonedas
-      totalInARS: 0, // El total en ARS
+      wallet: [], // Aquí van las criptomonedas de la billetera
+      cryptoPrices: {}, // Para almacenar los precios de las criptos
+      totalInARS: 0, // El total en ARS de la billetera
     };
   },
   async created() {
     await this.fetchWallet();
-    await this.fetchCryptoPrices(); // Obtenemos los precios de las criptos
+    await this.fetchCryptoPrices(); 
   },
   methods: {
     async fetchWallet() {
@@ -97,36 +107,31 @@ export default {
           : -parseFloat(tx.crypto_amount);
       });
 
-      // Solo agregamos las criptos con saldo positivo
       this.wallet = Object.keys(balance)
         .filter((crypto) => balance[crypto] > 0)
         .map((crypto) => ({
           crypto_code: crypto,
           amount: balance[crypto],
-          priceInARS: 0, // Inicializamos el precio en 0 por ahora
+          priceInARS: 0,
         }));
 
-      // Ahora que tenemos todas las criptos en la billetera, obtenemos los precios
       this.fetchCryptoPrices();
     },
     async fetchCryptoPrices() {
-      const cryptoCodes = this.wallet.map((crypto) => crypto.crypto_code); // Obtener todos los códigos de las criptos en la billetera
-      if (cryptoCodes.length === 0) return; // Si no hay criptos en la billetera, no hacemos nada
+      const cryptoCodes = this.wallet.map((crypto) => crypto.crypto_code);
+      if (cryptoCodes.length === 0) return;
 
       try {
-        // Convertir los códigos de las criptos a un string para la consulta de la API
         const cryptoQuery = cryptoCodes.join(",");
         const response = await axios.get(
           `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoQuery}&vs_currencies=ars`
         );
 
-        // Asignar los precios obtenidos a las criptos en la billetera
         this.wallet = this.wallet.map((crypto) => ({
           ...crypto,
-          priceInARS: response.data[crypto.crypto_code]?.ars || 0, // Si no existe el precio, asignar 0
+          priceInARS: response.data[crypto.crypto_code]?.ars || 0,
         }));
 
-        // Recalcular el total de la billetera en ARS
         this.calculateTotalInARS();
       } catch (error) {
         console.error("Error al obtener los precios:", error);
@@ -142,7 +147,6 @@ export default {
         return total + (crypto.amount * crypto.priceInARS);
       }, 0);
     },
-    // Formatear el número como moneda ARS (con puntos y comas)
     formatCurrency(value) {
       if (value === undefined || value === null) return 'Cargando...';
 
@@ -178,12 +182,17 @@ h1 {
   font-weight: bold;
 }
 
-.table-container {
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
   margin-top: 20px;
+}
+
+.table-container {
+  flex: 1;
+  max-width: 60%; /* Limitar el tamaño de la tabla */
   overflow-y: auto;
-  max-height: 400px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .table {
@@ -197,10 +206,10 @@ h1 {
 
 .table th,
 .table td {
-  padding: 15px;
+  padding: 10px; /* Reducir el tamaño de la tabla */
   text-align: left;
   border-bottom: 1px solid #2e3a4e;
-  font-size: 16px;
+  font-size: 14px; /* Reducir el tamaño de la fuente */
 }
 
 .table th {
@@ -215,10 +224,15 @@ h1 {
   cursor: pointer;
 }
 
-p {
-  color: #f0b90b;
-  text-align: center;
-  font-size: 16px;
+.chart-container {
+  flex: 1;
+  max-width: 40%; /* El gráfico ocupa menos espacio */
+  height: 400px; /* Limitar la altura del gráfico */
+  background-color: #161d2c;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .total {
@@ -227,5 +241,11 @@ p {
   color: #f0b90b;
   font-size: 20px;
   font-weight: bold;
+}
+
+p {
+  color: #f0b90b;
+  text-align: center;
+  font-size: 16px;
 }
 </style>
