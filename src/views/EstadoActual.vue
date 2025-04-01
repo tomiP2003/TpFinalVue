@@ -9,15 +9,24 @@
             <tr>
               <th>Criptomoneda</th>
               <th>Cantidad</th>
+              <th>Precio en ARS</th>
+              <th>Total en ARS</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(crypto, index) in wallet" :key="index">
               <td>{{ crypto.crypto_code }}</td>
               <td>{{ crypto.amount.toFixed(5) }}</td>
+              <td>{{ formatCurrency(crypto.priceInARS) || 'Cargando...' }}</td>
+              <td>{{ formatCurrency(crypto.priceInARS ? crypto.amount * crypto.priceInARS : 0) || 'Cargando...' }}</td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Total wallet value in ARS -->
+      <div class="total">
+        <h3>Total en ARS: {{ formatCurrency(totalInARS) }}</h3>
       </div>
     </div>
 
@@ -34,10 +43,13 @@ export default {
   data() {
     return {
       wallet: [],
+      cryptoPrices: {}, // Guardamos los precios de las criptomonedas
+      totalInARS: 0, // El total en ARS
     };
   },
   async created() {
     await this.fetchWallet();
+    await this.fetchCryptoPrices(); // Obtenemos los precios de las criptos
   },
   methods: {
     async fetchWallet() {
@@ -85,9 +97,60 @@ export default {
           : -parseFloat(tx.crypto_amount);
       });
 
+      // Solo agregamos las criptos con saldo positivo
       this.wallet = Object.keys(balance)
         .filter((crypto) => balance[crypto] > 0)
-        .map((crypto) => ({ crypto_code: crypto, amount: balance[crypto] }));
+        .map((crypto) => ({
+          crypto_code: crypto,
+          amount: balance[crypto],
+          priceInARS: 0, // Inicializamos el precio en 0 por ahora
+        }));
+
+      // Ahora que tenemos todas las criptos en la billetera, obtenemos los precios
+      this.fetchCryptoPrices();
+    },
+    async fetchCryptoPrices() {
+      const cryptoCodes = this.wallet.map((crypto) => crypto.crypto_code); // Obtener todos los códigos de las criptos en la billetera
+      if (cryptoCodes.length === 0) return; // Si no hay criptos en la billetera, no hacemos nada
+
+      try {
+        // Convertir los códigos de las criptos a un string para la consulta de la API
+        const cryptoQuery = cryptoCodes.join(",");
+        const response = await axios.get(
+          `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoQuery}&vs_currencies=ars`
+        );
+
+        // Asignar los precios obtenidos a las criptos en la billetera
+        this.wallet = this.wallet.map((crypto) => ({
+          ...crypto,
+          priceInARS: response.data[crypto.crypto_code]?.ars || 0, // Si no existe el precio, asignar 0
+        }));
+
+        // Recalcular el total de la billetera en ARS
+        this.calculateTotalInARS();
+      } catch (error) {
+        console.error("Error al obtener los precios:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "No se pudo obtener el precio de las criptomonedas.",
+        });
+      }
+    },
+    calculateTotalInARS() {
+      this.totalInARS = this.wallet.reduce((total, crypto) => {
+        return total + (crypto.amount * crypto.priceInARS);
+      }, 0);
+    },
+    // Formatear el número como moneda ARS (con puntos y comas)
+    formatCurrency(value) {
+      if (value === undefined || value === null) return 'Cargando...';
+
+      return new Intl.NumberFormat("es-AR", {
+        style: "decimal",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(value);
     },
   },
 };
@@ -156,5 +219,13 @@ p {
   color: #f0b90b;
   text-align: center;
   font-size: 16px;
+}
+
+.total {
+  margin-top: 20px;
+  text-align: center;
+  color: #f0b90b;
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>
