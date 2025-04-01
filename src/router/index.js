@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
-import Criptosya from '../views/Criptosya.vue';
+import Compra from '../views/Compra.vue';
+import Venta from '@/views/Venta.vue';
+import Mercado from '../views/Mercado.vue';
+import Historial from '../views/Historial.vue';
+import EstadoActual from '../views/EstadoActual.vue';
 
 const routes = [
   {
@@ -9,24 +13,29 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/criptosya',
-    name: 'criptosya',
-    component: Criptosya,
+    path: '/compra',
+    name: 'compra',
+    component: Compra,
+  },
+  {
+    path: '/Venta',
+    name: 'Venta',
+    component: Venta,
   },
   {
     path: '/mercado',
     name: 'mercado',
-    component: () => import('../views/Mercado.vue'),
+    component: Mercado,
   },
   {
     path: '/historial',
     name: 'historial',
-    component: () => import('../views/Historial.vue'),
+    component: Historial,
   },
   {
     path: '/estado-actual',
     name: 'estado-actual',
-    component: () => import('../views/EstadoActual.vue'),
+    component: EstadoActual,
   },
 ];
 

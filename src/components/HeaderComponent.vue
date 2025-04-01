@@ -3,10 +3,11 @@
     <nav v-if="userId">
       <span class="left">Hola, {{ userId }}!</span>
       <div class="right">
-        <a href="/Criptosya" class="nav-link">Compra-Venta</a>
+        <a href="/Compra" class="nav-link">Compra</a>
+        <a href="/Venta" class="nav-link">Venta</a>
         <a href="/Mercado" class="nav-link">Mercado</a>
         <a href="/Historial" class="nav-link">Historial</a>
-        <a href="EstadoActual" class="nav-link">Estado Actual</a>
+        <a href="/estado-actual" class="nav-link">Estado Actual</a>
         <a @click.prevent="logout" class="logout-link">Logout</a>
       </div>
     </nav>

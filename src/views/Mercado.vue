@@ -135,7 +135,7 @@
     ctx.beginPath();
     ctx.moveTo(0, y);
     ctx.lineTo(canvas.width, y);
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.1)"; // Líneas guía en gris claro
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
     ctx.lineWidth = 1;
     ctx.stroke();
 
@@ -148,7 +148,7 @@
   };
   </script>
   
-  <style scoped>
+<style scoped>
 .container {
   font-family: Arial, sans-serif;
   color: #ffffff;
@@ -161,7 +161,6 @@
   flex-direction: column;
   margin: 0;
 }
-
 h1 {
   text-align: center;
   margin-bottom: 20px;
@@ -169,37 +168,34 @@ h1 {
   font-size: 28px;
   font-weight: bold;
 }
-
 .form-control {
-  margin: 20px auto; /* Centra horizontalmente */
-  display: block; /* Asegura que el input tome el bloque completo */
+  margin: 20px auto;
+  display: block;
   padding: 10px;
   border: 1px solid #2e3a4e;
   border-radius: 5px;
-  width: 80%; /* Ajusta el ancho según sea necesario */
+  width: 80%;
   background-color: #161d2c;
   color: #ffffff;
-  text-align: center; /* Centra el texto dentro del input */
+  text-align: center;
 }
 
 .form-control::placeholder {
   color: #888;
 }
 
-
 .table-container {
-  overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
-  max-height: 400px; /* Limita la altura máxima del contenedor para permitir el scroll */
+  overflow-y: auto;
+  max-height: 400px;
   border-radius: 8px;
   margin: 0 auto;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
-  width: 100%; /* Asegura que ocupe todo el ancho disponible */
-  background-color: #161d2c; /* Fondo oscuro para el contenedor */
+  width: 100%;
+  background-color: #161d2c;
 }
 
-
 .table {
-  width: 100%; /* Haz que la tabla ocupe todo el ancho del contenedor */
+  width: 100%;
   border-collapse: collapse;
   background-color: #161d2c;
   color: #ffffff;
@@ -208,16 +204,16 @@ h1 {
   margin: 0;
 }
 .table-container::-webkit-scrollbar {
-  width: 8px; /* Ancho de la barra de desplazamiento */
+  width: 8px;
 }
 
 .table-container::-webkit-scrollbar-thumb {
-  background-color: #f0b90b; /* Color del "pulgar" de la barra */
+  background-color: #f0b90b;
   border-radius: 4px;
 }
 
 .table-container::-webkit-scrollbar-track {
-  background-color: #0b111e; /* Fondo del track de la barra */
+  background-color: #0b111e;
 }
 
 

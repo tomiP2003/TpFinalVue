@@ -51,7 +51,7 @@
         }
         localStorage.setItem("userId", this.usuario);
   
-        this.$router.push("/historial");
+        this.$router.push("/Compra");
       },
     },
   };
