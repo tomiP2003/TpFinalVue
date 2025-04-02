@@ -65,9 +65,9 @@ export default {
 </script>
 
 <style scoped>
-/* Estilo opcional para el gráfico */
+
 div {
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
 }
 </style>
