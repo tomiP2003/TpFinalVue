@@ -3,7 +3,6 @@
     <h1>Mi Billetera</h1>
 
     <div v-if="wallet.length" class="content-wrapper">
-      <!-- Columna izquierda: Tabla de criptos -->
       <div class="table-container">
         <table class="table">
           <thead>
@@ -25,7 +24,6 @@
         </table>
       </div>
 
-      <!-- Columna derecha: Gráfico -->
       <div class="chart-container">
         <Grafico :wallet="wallet" />
       </div>
@@ -33,7 +31,6 @@
 
     <p v-else>No tienes criptomonedas en tu billetera.</p>
 
-    <!-- Total wallet value in ARS -->
     <div class="total">
       <h3>Total en ARS: {{ formatCurrency(totalInARS) }}</h3>
     </div>
@@ -43,18 +40,18 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-import Grafico from "@/components/Grafico.vue"; // Importamos el componente del gráfico
+import Grafico from "@/components/Grafico.vue";
 
 export default {
   name: "EstadoActual",
   components: {
-    Grafico, // Registramos el componente aquí
+    Grafico,
   },
   data() {
     return {
-      wallet: [], // Aquí van las criptomonedas de la billetera
-      cryptoPrices: {}, // Para almacenar los precios de las criptos
-      totalInARS: 0, // El total en ARS de la billetera
+      wallet: [],
+      cryptoPrices: {},
+      totalInARS: 0,
     };
   },
   async created() {
