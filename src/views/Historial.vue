@@ -142,7 +142,6 @@ export default {
       this.calculatePrice();
     },
 
-    // Guardar cambios realizados en la transacción
     async saveTransaction() {
       try {
         const response = await axios.put(`https://laboratorio-36cf.restdb.io/rest/transactions/${this.editedTransaction._id}`, this.editedTransaction, {

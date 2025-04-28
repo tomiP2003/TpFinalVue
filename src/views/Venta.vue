@@ -103,7 +103,6 @@ export default {
       }
     },
 
-    // Calcula el monto a recibir por la venta
     calculateMoneyVenta() {
       if (this.cryptoPriceVenta && this.cryptoAmountVenta > 0) {
         if (this.cryptoAmountVenta > this.getMaxAmount) {
@@ -115,7 +114,6 @@ export default {
       }
     },
 
-    // Obtiene la billetera del usuario
     async fetchWallet() {
       const userId = localStorage.getItem("userId");
       if (!userId) {

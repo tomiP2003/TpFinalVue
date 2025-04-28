@@ -59,7 +59,6 @@ export default {
   methods: {
     async fetchCoins() {
       try {
-        // Realizamos la solicitud para obtener los precios en USD
         const usdResponse = await axios.get(
           "https://api.coingecko.com/api/v3/coins/markets",
           {
@@ -73,7 +72,6 @@ export default {
           }
         );
 
-        // Realizamos la solicitud para obtener los precios en ARS
         const arsResponse = await axios.get(
           "https://api.coingecko.com/api/v3/coins/markets",
           {
@@ -87,7 +85,6 @@ export default {
           }
         );
 
-        // Combinamos los datos de ambas respuestas
         const coinsWithPrices = usdResponse.data.map((coin, index) => ({
           ...coin,
           current_price_usd: coin.current_price,
@@ -95,7 +92,7 @@ export default {
         }));
 
         this.coins = coinsWithPrices;
-        console.log(this.coins); // Verificar que los datos están correctos
+        console.log(this.coins);
       } catch (error) {
         console.error("Error al cargar las criptomonedas:", error);
         alert("No se pudo cargar la información del mercado.");

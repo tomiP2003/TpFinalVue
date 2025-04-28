@@ -8,13 +8,12 @@
 import { Pie } from 'vue-chartjs';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from 'chart.js';
 
-// Registrar los componentes necesarios para gráficos de pastel
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale);
 
 export default {
   name: 'Grafico',
   components: {
-    PieChart: Pie, // Usamos el componente Pie en lugar de Line
+    PieChart: Pie,
   },
   props: {
     wallet: {
@@ -23,10 +22,9 @@ export default {
     },
   },
   computed: {
-    // Preparar los datos para el gráfico de pastel
     chartData() {
-      const labels = this.wallet.map(crypto => crypto.crypto_code); // Nombres de criptos
-      const data = this.wallet.map(crypto => crypto.amount * crypto.priceInARS); // Total en ARS de cada cripto
+      const labels = this.wallet.map(crypto => crypto.crypto_code);
+      const data = this.wallet.map(crypto => crypto.amount * crypto.priceInARS); 
 
       return {
         labels: labels,
@@ -34,14 +32,13 @@ export default {
           {
             label: 'Valor total en ARS',
             data: data,
-            backgroundColor: ['#f0b90b', '#e54b4b', '#0d172a', '#00b894', '#0984e3'], // Colores de las porciones del gráfico
+            backgroundColor: ['#f0b90b', '#e54b4b', '#0d172a', '#00b894', '#0984e3'], 
             borderColor: '#ffffff',
             borderWidth: 1,
           },
         ],
       };
     },
-    // Configurar las opciones del gráfico de pastel
     chartOptions() {
       return {
         responsive: true,
@@ -53,7 +50,7 @@ export default {
           tooltip: {
             callbacks: {
               label: function(tooltipItem) {
-                return `${tooltipItem.label}: $${tooltipItem.raw.toLocaleString()}`; // Mostrar la cantidad en ARS
+                return `${tooltipItem.label}: $${tooltipItem.raw.toLocaleString()}`; 
               },
             },
           },

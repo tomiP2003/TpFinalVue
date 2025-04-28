@@ -76,7 +76,7 @@ export default {
           "https://laboratorio-36cf.restdb.io/rest/transactions",
           {
             headers: {
-              "x-apikey": "64a5ccf686d8c5d256ed8fce", // API key
+              "x-apikey": "64a5ccf686d8c5d256ed8fce", 
             },
           }
         );
@@ -188,7 +188,7 @@ h1 {
 
 .table-container {
   flex: 1;
-  max-width: 60%; /* Limitar el tamaño de la tabla */
+  max-width: 60%;
   overflow-y: auto;
 }
 
@@ -203,10 +203,10 @@ h1 {
 
 .table th,
 .table td {
-  padding: 10px; /* Reducir el tamaño de la tabla */
+  padding: 10px; 
   text-align: left;
   border-bottom: 1px solid #2e3a4e;
-  font-size: 14px; /* Reducir el tamaño de la fuente */
+  font-size: 14px; 
 }
 
 .table th {
@@ -223,8 +223,8 @@ h1 {
 
 .chart-container {
   flex: 1;
-  max-width: 40%; /* El gráfico ocupa menos espacio */
-  height: 400px; /* Limitar la altura del gráfico */
+  max-width: 40%; 
+  height: 400px; 
   background-color: #161d2c;
   border-radius: 8px;
   display: flex;
